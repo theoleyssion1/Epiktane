@@ -1,0 +1,10 @@
+build/
+epi_ktane
+*.o
+*.so
+*.a
+*.d
+vgcore.*
+./module/
+shell.nix
+Score.txt

@@ -1,0 +1,48 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install build dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake build-essential git libglfw3-dev libglu1-mesa-dev libasound2-dev libpulse-dev libx11-dev libxcursor-dev libxi-dev libxrandr-dev libxinerama-dev libudev-dev libopenal-dev
+
+
+    - name: Clone and build raylib
+      run: |
+        git clone https://github.com/raysan5/raylib.git
+        cd raylib
+        git checkout 4.5.0
+        mkdir build && cd build
+        cmake -DCMAKE_BUILD_TYPE=Release ..
+        make
+        sudo make install
+        cd ../..
+
+
+    - name: Create build directory and compile with CMake
+      run: |
+        mkdir build
+        cd build
+        cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+        cmake --build .
+
+    - name: Verify executables are built
+      run: |
+        if [ ! -f build/epi_ktane ]; then
+          echo "Error: epi_ktane not found"
+          exit 1
+        fi
+        echo "All executables are built successfully!"
