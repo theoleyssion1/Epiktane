@@ -146,12 +146,12 @@ void Memory::processInput(int pressedPosition)
 
     void Memory::display(Gui *gui, Rectangle rect) {
         DrawRectangleRec(rect, LIGHTGRAY);
-        DrawRectangle(rect.x + 120, rect.y + 10, 20, 20, win());
-        DrawText(std::to_string(displayNumber).c_str(), rect.x + rect.width / 2 - 20, rect.y + 22, 40, RAYWHITE);
+        DrawRectangle(rect.x + rect.width - 30, rect.y + 10, 20, 20, win());
+        DrawText(std::to_string(displayNumber).c_str(), rect.x + rect.width / 2 - 20, rect.y + 30, 40, RAYWHITE);
         for (int i = 0; i < 4; ++i) {
-            Rectangle btn = {rect.x + 20 + i * 30, rect.y + 80, 20, 20};
+            Rectangle btn = {rect.x + 20 + i * 40, rect.y + 130, 20, 20};
             DrawRectangleRec(btn, DARKGRAY);
-            DrawText(std::to_string(buttonLabels[i]).c_str(), btn.x, btn.y + 20, 20, BLACK);
+            DrawText(std::to_string(buttonLabels[i]).c_str(), btn.x, btn.y + 22, 20, BLACK);
             if(CheckCollisionPointRec(GetMousePosition(), btn)) {
                 DrawRectangleRec(btn, WHITE);
             }

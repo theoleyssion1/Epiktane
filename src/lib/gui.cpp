@@ -6,10 +6,9 @@
 */
 
 #include "../../include/gui.hpp"
+#include "../../include/prototype.hpp"
 #include <raylib.h>
 #define NUM_FRAMES  3
-#define screenWidth 1200
-#define screenHeight 800
 
 
 namespace KTANE {
@@ -43,7 +42,7 @@ void Gui::initMenu()
         this->_buttons.clear();
     }
     Button button;
-    button.InitButton(Rectangle{500, 400, 200, 100}, "Play");
+    button.InitButton(Rectangle{screenWidth /2 - 120, screenHeight /2 , 200, 100}, "Play");
 
     this->_buttons.emplace("Start", std::move(button));
 }
@@ -54,19 +53,19 @@ void Gui::initStart()
         this->_buttons.clear();
     }
     Button button;
-    button.InitButton(Rectangle{300, 200, 200, 50}, "+");
+    button.InitButton(Rectangle{screenWidth /2 - 400, 200, 200, 50}, "+");
     this->_buttons.emplace("Perr", std::move(button));
-    button.InitButton(Rectangle{300, 400, 200, 50}, "-");
+    button.InitButton(Rectangle{screenWidth /2 - 400, 400, 200, 50}, "-");
     this->_buttons.emplace("Merr", std::move(button));
-    button.InitButton(Rectangle{600, 200, 200, 50}, "+");
+    button.InitButton(Rectangle{screenWidth /2 - 100, 200, 200, 50}, "+");
     this->_buttons.emplace("Pmod", std::move(button));
-    button.InitButton(Rectangle{600, 400, 200, 50}, "-");
+    button.InitButton(Rectangle{screenWidth /2 - 100, 400, 200, 50}, "-");
     this->_buttons.emplace("Mmod", std::move(button));
-    button.InitButton(Rectangle{900, 200, 200, 50}, "+");
+    button.InitButton(Rectangle{screenWidth /2 + 200, 200, 200, 50}, "+");
     this->_buttons.emplace("Ptime", std::move(button));
-    button.InitButton(Rectangle{900, 400, 200, 50}, "-");
+    button.InitButton(Rectangle{screenWidth /2 + 200, 400, 200, 50}, "-");
     this->_buttons.emplace("Mtime", std::move(button));
-    button.InitButton(Rectangle{(float(screenWidth) / 2), 600, 200, 100}, "START");
+    button.InitButton(Rectangle{(float(screenWidth) / 2 - 100), screenHeight/2 + 200, 200, 100}, "START");
     this->_buttons.emplace("Play", std::move(button));
 }
 
@@ -76,7 +75,7 @@ void Gui::initPlay()
         this->_buttons.clear();
     }
     Button button;
-    button.InitButton(Rectangle{1100, 20, 50, 50}, "Back");
+    button.InitButton(Rectangle{screenWidth - 100, 20, 50, 50}, "Back");
     
     this->_buttons.emplace("BackToMenu", std::move(button));
 }
@@ -87,9 +86,12 @@ void Gui::initWin()
         this->_buttons.clear();
     }
     Button button;
-    button.InitButton(Rectangle{500, 500, 200, 100}, "Back To Menu");
+    button.InitButton(Rectangle{screenWidth /2 - 100, screenHeight - 300, 200, 100}, "Back To Menu");
     
     this->_buttons.emplace("BackToMenu", std::move(button));
+    button.InitButton(Rectangle{screenWidth /2 + 150, 660, 75, 75}, "Save");
+    this->_buttons.emplace("Save", std::move(button));
+    
 }
 
 void Gui::initLoose()
@@ -98,7 +100,7 @@ void Gui::initLoose()
         this->_buttons.clear();
     }
     Button button;
-    button.InitButton(Rectangle{500, 300, 200, 100}, "Back To Menu");
+    button.InitButton(Rectangle{screenWidth / 2 - 100, screenHeight - 400, 200, 100}, "Back To Menu");
     
     this->_buttons.emplace("BackToMenu", std::move(button));
 }
@@ -163,7 +165,7 @@ Button* Gui::getButton(const std::string& name)
                     } else if (button.first == "BackToMenu") {
                         this->changeScreen(GUI_STATE::MENU);
                         return;
-                    }
+                    } 
                 }
             }
         }
@@ -199,7 +201,7 @@ Button* Gui::getButton(const std::string& name)
 
     void Gui::drawMenu()
     {
-        DrawText("Epi-KTANE", 475, 50, 50, BLACK);
+        DrawText("Epi-KTANE", screenWidth /2 -150, 50, 50, BLACK);
         this->drawButton("Start");
     }
 
@@ -211,25 +213,26 @@ Button* Gui::getButton(const std::string& name)
     void Gui::drawWin()
     {
         this->drawButton("BackToMenu");
+        this->drawButton("Save");
     }
 
     void Gui::drawLoose()
     {
-        DrawText("You Loose!", 500, 200, 40, BLACK);
+        DrawText("You Loose!", screenWidth / 2 - 200, 400, 60, BLACK);
         this->drawButton("BackToMenu");
     }
 
     void Gui::drawStart()
     {
-        DrawText("Nbr Error", 300, 150, 40, BLACK);
+        DrawText("Nbr Error", screenWidth /2 - 400, 150, 40, BLACK);
         this->drawButton("Perr");
         this->drawButton("Merr");
         
-        DrawText("Nbr Module", 600, 150, 40, BLACK);
+        DrawText("Nbr Module", screenWidth /2 - 100, 150, 40, BLACK);
         this->drawButton("Pmod");
         this->drawButton("Mmod");
         
-        DrawText("Time", 950, 150, 40, BLACK);
+        DrawText("Time", screenWidth /2 + 200, 150, 40, BLACK);
         this->drawButton("Ptime");
         this->drawButton("Mtime");
 

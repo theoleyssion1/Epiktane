@@ -171,7 +171,7 @@ int Simon::getButtonClicked(Vector2 mouse)
 
 void Simon::drawButtons(Rectangle rect)
 {
-    float padding = 10;
+    float padding = 12;
     float btnSize = (rect.width - 3 * padding) / 2 - 10;
     Vector2 positions[4] = {
         {rect.x + padding, rect.y + padding + 5},

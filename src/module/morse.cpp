@@ -107,15 +107,15 @@ namespace KTANE {
 
         if (_buttons.empty()) {
              Button button;
-            button.InitButton(Rectangle{rect.x + 10, rect.y + 120, 20, 20}, "-");
+            button.InitButton(Rectangle{rect.x + 10, rect.y + 150, 20, 20}, "-");
             _buttons.insert({"-", button});
-            button.InitButton(Rectangle{rect.x + 120, rect.y + 120, 20, 20}, "+");
+            button.InitButton(Rectangle{rect.x + 140, rect.y + 150, 20, 20}, "+");
             _buttons.insert({"+", button});
-            button.InitButton(Rectangle{rect.x + 35, rect.y + 120, 80, 20}, "confirm");
+            button.InitButton(Rectangle{rect.x + 45, rect.y + 150, 80, 20}, "confirm");
             _buttons.insert({"val", button});
         }
         DrawRectangleRec(rect, LIGHTGRAY);
-        DrawRectangle(rect.x + 120, rect.y + 10, 20, 20, win());
+        DrawRectangle(rect.x + rect.width - 30, rect.y + 10, 20, 20, win());
 
         _blinkTimer += GetFrameTime();
         if (_blinkTimer > _blinkDelay) {
@@ -131,7 +131,7 @@ namespace KTANE {
         if (this->_buttons.at("+").UpdateButton() && !_solved) _userFrequency += 0.005f;
         if (this->_buttons.at("-").UpdateButton() && !_solved) _userFrequency -= 0.005f;
         _userFrequency = std::clamp(_userFrequency, _minFrequency, _maxFrequency);
-        DrawText(TextFormat("F: %.3f MHz", _userFrequency), rect.x + 10, rect.y + 50, 20, WHITE);
+        DrawText(TextFormat("F: %.3f MHz", _userFrequency), rect.x + 20, rect.y + 80, 20, WHITE);
         this->_buttons.at("+").DrawButton();
         this->_buttons.at("-").DrawButton();
         this->_buttons.at("val").DrawButton();

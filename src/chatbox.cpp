@@ -5,6 +5,7 @@
 ** chatbox
 */
 #include "../include/chatbox.hpp"
+#include "../include/prototype.hpp"
 
 #define MAX_INPUT_CHARS 15
 
@@ -24,7 +25,7 @@ bool IsAnyKeyPressed()
 void ChatBox::initChatBox()
 {
     this->_letterCount = 0;
-    this->_textBox = { 500, 400, 225, 50 };
+    this->_textBox = { screenWidth / 2 - 98, 680, 225, 50 };
     this->_mouseOnText = false;
     this->_framesCounter = 0;
     this->_name[0] = '\0';
@@ -64,7 +65,7 @@ void ChatBox::drawChatBox()
         this->_framesCounter = 0;
     }
 
-    DrawText("Enter your pseudo", 500, 370, 20, GRAY);
+    DrawText("Enter your pseudo", screenWidth / 2 - 100, 650, 20, GRAY);
     DrawRectangleRec(this->_textBox, LIGHTGRAY);
     if (this->_mouseOnText)
         DrawRectangleLines((int)this->_textBox.x, (int)this->_textBox.y, (int)this->_textBox.width, (int)this->_textBox.height, RED);

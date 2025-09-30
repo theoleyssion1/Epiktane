@@ -21,7 +21,10 @@ class Score {
         int getModule() const;
         int getError() const;
         void writeintoFile();
+        bool isSaved() const { return _isSaved; }
+        void setIsSaved(bool val) { _isSaved = val; }
     private:
+        bool _isSaved{false};
         int _score{0};
         std::string _name;
         int _time{0};

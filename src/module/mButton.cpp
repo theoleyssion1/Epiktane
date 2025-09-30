@@ -53,7 +53,7 @@ void KTANE::ButtonModule::display(KTANE::Gui *gui, Rectangle rect)
 {
     if (!_buttonInit) {
         _button.InitButton(
-            Rectangle{rect.x + 20, rect.y + 20, 90, 90},
+            Rectangle{rect.x + 30, rect.y + 30, 120, 120},
             _label,
             _color == "red" ? RED :
             _color == "blue" ? BLUE :

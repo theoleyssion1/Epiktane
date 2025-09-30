@@ -20,6 +20,7 @@ void Score::addScore(const std::string &name, int module, int time, int error)
     this->_module = module;
     this->_time = time;
     this->_error = error;
+    this->_isSaved = true;
     this->writeintoFile();
 }
 

@@ -18,10 +18,11 @@
 #include "../include/simon.hpp"
 #include "../include/memory.hpp"
 #include "../include/morse.hpp"
+#include "../include/prototype.hpp"
 
-#define mod_x 100
-#define mod_y 100
-#define scale 150
+#define mod_x screenWidth / 10
+#define mod_y 200
+#define scale 200
 
 namespace KTANE {
 
@@ -56,6 +57,7 @@ namespace KTANE {
         this->_errorCount = 0;
         this->_nbrWin = 0;
         this->_status = PROCESS;
+        this->_score.setIsSaved(false);
 
         bool hasDigit = false, hasLetter = false;
 
@@ -108,7 +110,9 @@ namespace KTANE {
     // Table des modules disponibles
     std::vector<ModuleEntry> moduleTable = {
         {[]() { return new Wire(); }, (_nbrModule + 1) / 2},
-        {[]() { return new ButtonModule(); }, (_nbrModule + 1) / 2},
+        {[]() { return new ButtonModule(); }, 
+        0}, 
+        //(_nbrModule + 1) / 2},
         {[]() { return new Simon(); }, 2},
         {[]() { return new Memory(); }, 2},
         {[]() { return new Morse(); }, 1},
@@ -151,9 +155,9 @@ namespace KTANE {
     {
 
         if (gui->getState() == KTANE::GUI_STATE::START) {
-            DrawText(TextFormat("%i", this->_maxError), 320, 300, 40, BLACK);
-            DrawText(TextFormat("%i", this->_nbrModule), 630, 300, 40, BLACK);
-            DrawText(formatTime(this->_time).c_str(), 900, 300, 40, BLACK);
+            DrawText(TextFormat("%i", this->_maxError), screenWidth /2 - 330, 300, 40, BLACK);
+            DrawText(TextFormat("%i", this->_nbrModule), screenWidth / 2 - 20, 300, 40, BLACK);
+            DrawText(formatTime(this->_time).c_str(), screenWidth / 2 + 220, 300, 40, BLACK);
             if (gui->getButton("Perr")->UpdateButton() == true) {
                 this->setMaxError(this->getMaxError() + 1);
             }
@@ -185,10 +189,10 @@ namespace KTANE {
             DrawText(TextFormat("Serial : %s", this->_serial.c_str()), 0, 20, 20, BLACK);
             DrawText(TextFormat("Battery : %i", this->battery), 0, 40, 20, BLACK);
             for (const auto& module : this->_module) {
-                x += 160;
+                x += 240;
                 if (i == 5) {
                     x = mod_x;
-                    y += 160;
+                    y += 240;
                 }
                 if (module) {
                     module->display(gui, Rectangle{x, y, scale, scale});
@@ -199,15 +203,15 @@ namespace KTANE {
             return;
         }
         if (gui->getState() == KTANE::GUI_STATE::WIN) {
-            DrawText("You win!", 500, 200, 40, GREEN);
-            DrawText(TextFormat("Modules solved: %i \n Time remaining: %s", this->_nbrModule,
-                this->formatTime(this->_timer.getRemainingTime()).c_str()), 500, 240, 20, BLACK);
+            DrawText("You win!", screenWidth / 2 - 120, 300, 40, GREEN);
+            DrawText(TextFormat("Modules solved: %i \nTime remaining: %s", this->_nbrModule,
+                this->formatTime(this->_timer.getRemainingTime()).c_str()), screenWidth / 2 - 130, 360, 40, BLACK);
                 this->_chatbox.drawChatBox();
-                if (this->_chatbox.SaveChatBox() == true) {
-                    DrawText("Pseudo Saved", 560, 460, 20, GREEN);
+                if (gui->getButton("Save")->UpdateButton() == true && this->_score.isSaved() == false) {
                     this->_score.addScore(this->_chatbox.getSavedName(), this->_nbrModule, this->_timer.getRemainingTime(), this->_errorCount);
                 }
-            return;
+                if (this->_score.isSaved())
+                    DrawText("Score Saved", screenWidth / 2 - 100, 630, 20, GREEN);
         }
     }
 

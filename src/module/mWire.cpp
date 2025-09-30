@@ -185,14 +185,14 @@ Color KTANE::Wire::win()
 
 void KTANE::Wire::display(KTANE::Gui *gui, Rectangle rect)
 {
-    Rectangle wire{rect.x + 5, rect.y + 10, 100, 10};
+    Rectangle wire{rect.x + 10, rect.y + 10, 120, 15};
     DrawRectangle(rect.x, rect.y, rect.width, rect.height, LIGHTGRAY);
-    DrawRectangle(rect.x + 120, rect.y + 10, 20, 20, win());
+    DrawRectangle(rect.x + rect.width - 30, rect.y + 10, 20, 20, win());
     for (int i = 0; i < this->getWire(); i++) {
         if (this->_win == false)
             update(wire, i);
         DrawRectangle(wire.x, wire.y, wire.width, wire.height, this->_colorOfWires[i]);
-        wire.y += 20;
+        wire.y += 25;
     }
 }
 
