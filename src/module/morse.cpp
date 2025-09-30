@@ -18,11 +18,11 @@ namespace KTANE {
     Morse::Morse() {
         initMorseTable();
         _wordToFreq = {
-            {"shell", 3.505f}, {"halls", 3.515f}, {"slick", 3.522f},
-            {"trick", 3.532f}, {"boxes", 3.535f}, {"leaks", 3.542f},
-            {"strobe", 3.545f}, {"bistro", 3.552f}, {"flick", 3.555f},
-            {"bombes", 3.565f}, {"break", 3.572f}, {"brick", 3.575f},
-            {"steak", 3.582f}, {"sting", 3.592f}, {"vector", 3.595f},
+            {"shell", 3.505f}, {"halls", 3.515f}, {"slick", 3.520f},
+            {"trick", 3.530f}, {"boxes", 3.535f}, {"leaks", 3.540f},
+            {"strobe", 3.545f}, {"bistro", 3.550f}, {"flick", 3.555f},
+            {"bombes", 3.565f}, {"break", 3.570f}, {"brick", 3.575f},
+            {"steak", 3.580f}, {"sting", 3.590f}, {"vector", 3.595f},
             {"beats", 3.600f}
         };
     }
@@ -119,7 +119,7 @@ namespace KTANE {
 
         _blinkTimer += GetFrameTime();
         if (_blinkTimer > _blinkDelay) {
-            _blinkTimer = 0.0f;
+            _blinkTimer = -0.2f;
             _blinkIndex = (_blinkIndex + 1) % morseSequence.size();
         }
 

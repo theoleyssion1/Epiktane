@@ -204,7 +204,7 @@ namespace KTANE {
         }
         if (gui->getState() == KTANE::GUI_STATE::WIN) {
             DrawText("You win!", screenWidth / 2 - 120, 300, 40, GREEN);
-            DrawText(TextFormat("Modules solved: %i \nTime remaining: %s", this->_nbrModule,
+            DrawText(TextFormat("Modules solved: %i \n\nTime remaining: %s", this->_nbrModule,
                 this->formatTime(this->_timer.getRemainingTime()).c_str()), screenWidth / 2 - 130, 360, 40, BLACK);
                 this->_chatbox.drawChatBox();
                 if (gui->getButton("Save")->UpdateButton() == true && this->_score.isSaved() == false) {
